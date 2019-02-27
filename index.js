@@ -32,7 +32,7 @@ const infoPromiseArray = () => {
   };
   //Leer readme
   const readLineLink = readline.createInterface({
-    input: fs.createReadStream('./README.md')
+    input: fs.createReadStream(process.argv[2])
   });
   //Crear función leer linea por linea
   const promiseAcc = [];
