@@ -1,0 +1,8 @@
+const fetch = require('node-fetch');
+
+const fff= async function(){
+    const valor= await unaPromesaCompleja
+}
+console.log(valor)
+
+spread operator
