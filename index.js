@@ -1,70 +1,78 @@
-#!/usr/bin/env node
-
-
-/*module.exports = () => {
-  // ...x
-};*/
 const fs = require('fs');
 const readline = require('readline');
 const fetch = require('node-fetch');
 
-//Función para leer .md
-const readReadme = (callback) => {
-  fs.readFile('./README.md', 'utf-8', function (err, data) {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log(data.toString())
-    }
+//Creo función que retorna una promesa (Promise) y resuelva a un arreglo (Array) de objetos (Object)
 
+const infoPromiseArray = () => {
+  //Función para validate link (me devuelve la promesa que me valida si el link esta bueno o no)
+  const validateAllLink = (link) => {
+    return new Promise((resolve, reject) => {
+      fetch(link.link)
+        .then((res) => {
+          if (res.status === 200) {
+            return resolve({
+              ...link,
+              status: 'OK'
+            })
+          } else {
+            return resolve({
+              ...link,
+              status: 'Roto'
+            })
+          }
+        })
+        .catch((err) => {
+          return resolve({
+            ...link,
+            status: 'Sin conexión'
+          })
+        })
+    })
+  };
+  //Leer readme
+  const readLineLink = readline.createInterface({
+    input: fs.createReadStream('./README.md')
   });
-
-}
-//Función para validate link (me devuelve la promesa que me valida si el link esta bueno o no)
-const validateAllLink = (link) => {
-  return new Promise((resolve, reject) => {
-    fetch(link.link)
-      .then((res) => {
-        if (res.status === 200) {
-          return resolve({...link, status: 'OK'})
-        } else {
-          return resolve({...link, status: 'Roto'})
-        }
-      })
-      .catch((err)=>{
-        return reject({...link, status: 'Sin conexión'})
-      })
+  //Crear función leer linea por linea
+  const promiseAcc = [];
+  let counterLine = 0;
+  readLineLink.on('line', function (lineReadme) {
+    counterLine++;
+    let infoLink = lineReadme;
+    //Patron (expresiones regulares)
+    let pattern = /((http:\/\/|https:\/\/|www\.)[^\s][^\)]+)/;
+    let patternLink = infoLink.match(pattern); //me recorre todas las lineas para extraer los link
+    //console.log(patternLink); Arroja un arreglo completo
+    if (patternLink !== null) {
+      promiseAcc.push(validateAllLink({
+        "link": patternLink[0],
+        "line": counterLine
+      }));
+    }
   })
+
+  readLineLink.on('close', () => {
+    Promise.all(promiseAcc)
+      .then(console.log);
+  });
 };
-//Leer readme
-const readLineLink = readline.createInterface({
-  input: fs.createReadStream('./README.md')
-});
-//Crear función leer linea por linea
-let counterLine = 0;
-readLineLink.on('line', function (lineReadme) {
-  counterLine++;
-  let infoLink = lineReadme;
-  //Patron (expresiones regulares)
-  let pattern = /((http:\/\/|https:\/\/|www\.)[^\s][^\)]+)/;
-  let patternLink = infoLink.match(pattern); //me recorre todas las lineas para extraer los link
-  //console.log(patternLink); Arroja un arreglo completo
-  if (patternLink !== null) {
-    let arrayLink = [];
-    arrayLink.push({
-      "link": patternLink[0],
-      "line": counterLine
-    })
-    return Promise.all(arrayLink.map((elemet) => {
-        return validateAllLink(elemet)
-      }))
-      .then((data)=>{
-        console.log(data);
-      })
-      .catch(function(err) {console.log('Failed: ', err)
-    })
-  }
-})
+infoPromiseArray();
+
+
+//La función debe retornar una promesa (Promise) que resuelva a un arreglo (Array) de objetos (Object), 
+//donde cada objeto representa un link y contiene las siguientes propiedades:
+
+
+//(deberia recibir el archivo entero y luego las lineas)
+
+
+
+
+
+
+
+
 
 // Leer la ruta que ingrese el usuario y transformarla a absoluta con resolve
 
@@ -103,5 +111,5 @@ const readLineLink= readline.createInterface({input: fs.createReadStream(readRea
   }
   readLineLink.on('line', lineLinkPrint);
 };
- 
+
  */
