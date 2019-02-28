@@ -1,10 +1,14 @@
 const fs = require('fs');
 const readline = require('readline');
 const fetch = require('node-fetch');
+//const path = require('path');
 
 //Creo función que retorna una promesa (Promise) y resuelva a un arreglo (Array) de objetos (Object)
 
-const infoPromiseArray = () => {
+const mdLinks = () => {
+
+
+  
   //Función para validate link (me devuelve la promesa que me valida si el link esta bueno o no)
   const validateAllLink = (link) => {
     return new Promise((resolve, reject) => {
@@ -46,18 +50,29 @@ const infoPromiseArray = () => {
     //console.log(patternLink); Arroja un arreglo completo
     if (patternLink !== null) {
       promiseAcc.push(validateAllLink({
-        "link": patternLink[0],
+        "link": patternLink,
         "line": counterLine
       }));
     }
   })
 
-  readLineLink.on('close', () => {
-    Promise.all(promiseAcc)
-      .then(console.log);
+  return new Promise((resolve) => {
+    readLineLink.on('close', () => {
+   resolve (Promise.all(promiseAcc))
+      
   });
-};
-infoPromiseArray();
+  })
+
+}
+
+if(require.main=== module)
+mdLinks()
+.then(console.log)
+module.exports= mdLinks;
+
+
+
+
 
 
 //La función debe retornar una promesa (Promise) que resuelva a un arreglo (Array) de objetos (Object), 
@@ -65,13 +80,6 @@ infoPromiseArray();
 
 
 //(deberia recibir el archivo entero y luego las lineas)
-
-
-
-
-
-
-
 
 
 // Leer la ruta que ingrese el usuario y transformarla a absoluta con resolve

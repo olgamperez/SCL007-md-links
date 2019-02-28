@@ -20,4 +20,13 @@ Encapsular el codigo en una sola función (md-links)
 7. Deben reconocer cuando su programa se ejecuta como modulo o se ejecuta como programa en la terminal
 usar (require.main === module===>significa que esta siendo ejecutado desde la terminal)
 8. Ver la recursión y el caso en que estemos frente a un directorio(llamar a md-links dentro de md-links)
-9. Sumar los resultados de cada llamada de md-links
+9. Sumar los resultados de cada llamada de md-links*/
+
+/* let pathUrl = process.argv[2];
+let option = process.argv[3]; */
+
+/* promises.mdlinks(pathUrl, option).then((resultado) => {
+  console.log(resultado);
+}, (error)=>{
+  console.log(error);
+}); */
