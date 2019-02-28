@@ -1,14 +1,33 @@
 const fs = require('fs');
 const readline = require('readline');
 const fetch = require('node-fetch');
-//const path = require('path');
+const pathUrl = require('path')
+const processUser = process.argv[2]
+//Crear función para leer ruta revisar los metodos (isDirectori, statsync, pathresolve)
 
-//Creo función que retorna una promesa (Promise) y resuelva a un arreglo (Array) de objetos (Object)
+const searchRoute = (processUser) => {
+  let validateIsFile = fs.statSync(processUser)
+  //si el padre es una carpeta
+  if (validateIsFile.isDirectory() === true) {
+    fs.readdirSync(processUser).forEach(e => {
+      console.log(e)
+      //Si el hijo es una carpeta o un archivo md
+      if (fs.statSync(processUser + '/' + e).isDirectory() === true || pathUrl.extname(processUser + '/' + e) === '.md') {
+        searchRoute(processUser + '/' + e)
+        console.log(' Soy la recursión')
+      }
+    })
+  }
+  //Si el padre es un archivo md
+  else if (validateIsFile.isFile() === true && pathUrl.extname(processUser) === '.md') {
+    console.log('hola soy un archivo md');
+  };
+}
+searchRoute(processUser)
 
-const mdLinks = () => {
 
-
-  
+//Función general que retorna una promesa (Promise) y resuelve a un arreglo (Array) de objetos (Object)
+const mdLinksInitial = (path) => {
   //Función para validate link (me devuelve la promesa que me valida si el link esta bueno o no)
   const validateAllLink = (link) => {
     return new Promise((resolve, reject) => {
@@ -36,7 +55,7 @@ const mdLinks = () => {
   };
   //Leer readme
   const readLineLink = readline.createInterface({
-    input: fs.createReadStream(process.argv[2])
+    input: fs.createReadStream(path)
   });
   //Crear función leer linea por linea
   const promiseAcc = [];
@@ -50,25 +69,25 @@ const mdLinks = () => {
     //console.log(patternLink); Arroja un arreglo completo
     if (patternLink !== null) {
       promiseAcc.push(validateAllLink({
-        "link": patternLink,
+        "link": patternLink[0],
         "line": counterLine
       }));
     }
   })
-
+  //Me retorna una promesa con un array de objetos con la información extraida del readme
   return new Promise((resolve) => {
     readLineLink.on('close', () => {
-   resolve (Promise.all(promiseAcc))
-      
-  });
+      resolve(Promise.all(promiseAcc))
+
+    });
   })
 
 }
-
-if(require.main=== module)
-mdLinks()
-.then(console.log)
-module.exports= mdLinks;
+//Exportando mdlinks
+// if (require.main === module)
+//   mdLinksInitial()
+// .then(console.log)
+module.exports = mdLinksInitial;
 
 
 
