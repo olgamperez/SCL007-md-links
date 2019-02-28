@@ -1,10 +1,10 @@
 const fs = require('fs');
 const readline = require('readline');
 const fetch = require('node-fetch');
-const pathUrl = require('path')
+const path = require('path')
 const processUser = process.argv[2]
 //Crear función para leer ruta revisar los metodos (isDirectori, statsync, pathresolve)
-
+/*
 const searchRoute = (processUser) => {
   let validateIsFile = fs.statSync(processUser)
   //si el padre es una carpeta
@@ -22,12 +22,14 @@ const searchRoute = (processUser) => {
   else if (validateIsFile.isFile() === true && pathUrl.extname(processUser) === '.md') {
     console.log('hola soy un archivo md');
   };
-}
-searchRoute(processUser)
+}*/
+
 
 
 //Función general que retorna una promesa (Promise) y resuelve a un arreglo (Array) de objetos (Object)
-const mdLinksInitial = (path) => {
+const mdLinks = (pathUser) => {
+
+
   //Función para validate link (me devuelve la promesa que me valida si el link esta bueno o no)
   const validateAllLink = (link) => {
     return new Promise((resolve, reject) => {
@@ -54,89 +56,44 @@ const mdLinksInitial = (path) => {
     })
   };
   //Leer readme
-  const readLineLink = readline.createInterface({
-    input: fs.createReadStream(path)
-  });
-  //Crear función leer linea por linea
-  const promiseAcc = [];
-  let counterLine = 0;
-  readLineLink.on('line', function (lineReadme) {
-    counterLine++;
-    let infoLink = lineReadme;
-    //Patron (expresiones regulares)
-    let pattern = /((http:\/\/|https:\/\/|www\.)[^\s][^\)]+)/;
-    let patternLink = infoLink.match(pattern); //me recorre todas las lineas para extraer los link
-    //console.log(patternLink); Arroja un arreglo completo
-    if (patternLink !== null) {
-      promiseAcc.push(validateAllLink({
-        "link": patternLink[0],
-        "line": counterLine
-      }));
-    }
-  })
-  //Me retorna una promesa con un array de objetos con la información extraida del readme
-  return new Promise((resolve) => {
-    readLineLink.on('close', () => {
-      resolve(Promise.all(promiseAcc))
-
+  let validateIsFile = fs.statSync(pathUser)
+  if (validateIsFile.isFile() === true && path.extname(pathUser) === '.md') {
+    const readLineLink = readline.createInterface({
+      input: fs.createReadStream(pathUser)
     });
-  })
+    //Crear función leer linea por linea
+    const promiseAcc = [];
+    let counterLine = 0;
+    readLineLink.on('line', function (lineReadme) {
+      counterLine++;
+      let infoLink = lineReadme;
+      //Patron (expresiones regulares)
+      let pattern = /((http:\/\/|https:\/\/|www\.)[^\s][^\)]+)/;
+      let patternLink = infoLink.match(pattern); //me recorre todas las lineas para extraer los link
+      //console.log(patternLink); Arroja un arreglo completo
+      if (patternLink !== null) {
+        promiseAcc.push(validateAllLink({
+          "link": patternLink[0],
+          "line": counterLine
+        }));
+      }
+    })
+
+    return new Promise((resolve) => {
+      readLineLink.on('close', () => {
+        resolve(Promise.all(promiseAcc))
+
+      });
+    })
+  } else if (fs.statSync(pathUser).isDirectory() === true) {
+    return Promise.resolve(Promise.all(fs.readdirSync(pathUser).map(e => {
+      return mdLinks(pathUser+"/"+e)
+    })))
+  }
 
 }
-//Exportando mdlinks
-// if (require.main === module)
-//   mdLinksInitial()
-// .then(console.log)
-module.exports = mdLinksInitial;
 
-
-
-
-
-
-//La función debe retornar una promesa (Promise) que resuelva a un arreglo (Array) de objetos (Object), 
-//donde cada objeto representa un link y contiene las siguientes propiedades:
-
-
-//(deberia recibir el archivo entero y luego las lineas)
-
-
-// Leer la ruta que ingrese el usuario y transformarla a absoluta con resolve
-
-//   for (let i = 0; i < arrayLink.length; i++) {
-//      console.log('Line N° ' + counterLine +' '+ patternLink[i]);
-//   fetch(arrayLink[i].link)
-//   return
-/* 
-          // console.log('Line N° ' + counterLine +' ' + arrayLink[i]+ response.url);
-          console.log('Line N° ' + arrayLink[i].line + ' ' + arrayLink[i].link + response.url + ' ' + 'Estatus: ' + response.status + ' ' + 'validación: ' + response.ok);
-          // console.log(response.status);
-        }).catch(function (error) {
-          console.log("Failed!", error);
-        })
-
-    }
-
-  }
-
-
-
-  // console.log('Line number ' + counterLine + ': ' + lineReadme);
-});
-*/
-
-
-
-
-
-//readLineLink.on('line', lineLinkPrint);
-
-/*
-const readLineLink= readline.createInterface({input: fs.createReadStream(readReadme)});
-  const lineLinkPrint = (prueba)=>{
-    console.log(`Hola soy una linea de link: ${prueba.toString}`)
-  }
-  readLineLink.on('line', lineLinkPrint);
-};
-
- */
+if (require.main === module)
+  mdLinks(processUser)
+  .then(console.log)
+module.exports = mdLinks;
