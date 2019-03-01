@@ -25,7 +25,6 @@ const searchRoute = (processUser) => {
 }*/
 
 
-
 //Función general que retorna una promesa (Promise) y resuelve a un arreglo (Array) de objetos (Object)
 const mdLinks = (pathUser) => {
 
@@ -58,39 +57,43 @@ const mdLinks = (pathUser) => {
   //Leer readme
   let validateIsFile = fs.statSync(pathUser)
   if (validateIsFile.isFile() === true && path.extname(pathUser) === '.md') {
-    const readLineLink = readline.createInterface({
-      input: fs.createReadStream(pathUser)
-    });
-    //Crear función leer linea por linea
-    const promiseAcc = [];
-    let counterLine = 0;
-    readLineLink.on('line', function (lineReadme) {
-      counterLine++;
-      let infoLink = lineReadme;
-      //Patron (expresiones regulares)
-      let pattern = /((http:\/\/|https:\/\/|www\.)[^\s][^\)]+)/;
-      let patternLink = infoLink.match(pattern); //me recorre todas las lineas para extraer los link
-      //console.log(patternLink); Arroja un arreglo completo
-      if (patternLink !== null) {
-        promiseAcc.push(validateAllLink({
-          "link": patternLink[0],
-          "line": counterLine
-        }));
-      }
-    })
-
-    return new Promise((resolve) => {
-      readLineLink.on('close', () => {
-        resolve(Promise.all(promiseAcc))
-
+    return new Promise((resolve, reject) => {
+      const readLineLink = readline.createInterface({
+        input: fs.createReadStream(pathUser)
       });
-    })
-  } else if (fs.statSync(pathUser).isDirectory() === true) {
-    return Promise.resolve(Promise.all(fs.readdirSync(pathUser).map(e => {
-      return mdLinks(pathUser+"/"+e)
-    })))
-  }
+      //Crear función leer linea por linea
+      const promiseAcc = [];
+      let counterLine = 0;
+      readLineLink.on('line', function (lineReadme) {
+        counterLine++;
+        let infoLink = lineReadme;
+        //Patron (expresiones regulares)
+        let pattern = /((http:\/\/|https:\/\/|www\.)[^\s][^\)]+)/;
+        let patternLink = infoLink.match(pattern); //me recorre todas las lineas para extraer los link
+        //console.log(patternLink); Arroja un arreglo completo
+        if (patternLink !== null) {
+          promiseAcc.push(validateAllLink({
+            "link": patternLink[0],
+            "line": counterLine
+          }));
+        }
+      })
 
+      readLineLink.on('close', () => {
+        Promise.all(promiseAcc).then(resolve);
+      });
+    });
+  } else if (fs.statSync(pathUser).isDirectory() === true) {
+    return Promise.all(fs.readdirSync(pathUser).map(e => {
+      return mdLinks(pathUser + "/" + e)
+    })).then(data=>{
+      return Promise.resolve(data.reduce((acc, current)=>{
+        return acc.concat(current);
+      }))
+    })
+  }else{
+    return Promise.resolve([]);
+  }
 }
 
 if (require.main === module)
