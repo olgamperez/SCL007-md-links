@@ -1,34 +1,10 @@
 const fs = require('fs');
 const readline = require('readline');
 const fetch = require('node-fetch');
-const path = require('path')
-const processUser = process.argv[2]
-//Crear función para leer ruta revisar los metodos (isDirectori, statsync, pathresolve)
-/*
-const searchRoute = (processUser) => {
-  let validateIsFile = fs.statSync(processUser)
-  //si el padre es una carpeta
-  if (validateIsFile.isDirectory() === true) {
-    fs.readdirSync(processUser).forEach(e => {
-      console.log(e)
-      //Si el hijo es una carpeta o un archivo md
-      if (fs.statSync(processUser + '/' + e).isDirectory() === true || pathUrl.extname(processUser + '/' + e) === '.md') {
-        searchRoute(processUser + '/' + e)
-        console.log(' Soy la recursión')
-      }
-    })
-  }
-  //Si el padre es un archivo md
-  else if (validateIsFile.isFile() === true && pathUrl.extname(processUser) === '.md') {
-    console.log('hola soy un archivo md');
-  };
-}*/
-
+const path = require('path');
 
 //Función general que retorna una promesa (Promise) y resuelve a un arreglo (Array) de objetos (Object)
 const mdLinks = (pathUser) => {
-
-
   //Función para validate link (me devuelve la promesa que me valida si el link esta bueno o no)
   const validateAllLink = (link) => {
     return new Promise((resolve, reject) => {
@@ -57,6 +33,7 @@ const mdLinks = (pathUser) => {
   //Leer readme
   let validateIsFile = fs.statSync(pathUser)
   if (validateIsFile.isFile() === true && path.extname(pathUser) === '.md') {
+    const absolutPath = path.resolve(pathUser)
     return new Promise((resolve, reject) => {
       const readLineLink = readline.createInterface({
         input: fs.createReadStream(pathUser)
@@ -73,8 +50,10 @@ const mdLinks = (pathUser) => {
         //console.log(patternLink); Arroja un arreglo completo
         if (patternLink !== null) {
           promiseAcc.push(validateAllLink({
-            "link": patternLink[0],
-            "line": counterLine
+            "href": patternLink[0],
+            "text": patternLink.input,
+            "line": counterLine,
+            "file": absolutPath,
           }));
         }
       })
@@ -99,4 +78,6 @@ const mdLinks = (pathUser) => {
 if (require.main === module)
   mdLinks(processUser)
   .then(console.log)
+
+
 module.exports = mdLinks;
