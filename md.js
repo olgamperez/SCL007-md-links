@@ -57,7 +57,6 @@ const mdLinks = (pathUser) => {
           }));
         }
       })
-
       readLineLink.on('close', () => {
         Promise.all(promiseAcc).then(resolve);
       });
