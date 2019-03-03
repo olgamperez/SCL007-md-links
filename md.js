@@ -50,10 +50,10 @@ const mdLinks = (pathUser) => {
         //console.log(patternLink); Arroja un arreglo completo
         if (patternLink !== null) {
           promiseAcc.push(validateAllLink({
-            "href": patternLink[0],
-            "text": patternLink.input,
-            "line": counterLine,
-            "file": absolutPath,
+            'href': patternLink[0],
+            'text': patternLink.input,
+            'line': counterLine,
+            'file': absolutPath,
           }));
         }
       })
@@ -64,12 +64,12 @@ const mdLinks = (pathUser) => {
   } else if (fs.statSync(pathUser).isDirectory() === true) {
     return Promise.all(fs.readdirSync(pathUser).map(e => {
       return mdLinks(pathUser + "/" + e)
-    })).then(data=>{
-      return Promise.resolve(data.reduce((acc, current)=>{
+    })).then(data => {
+      return Promise.resolve(data.reduce((acc, current) => {
         return acc.concat(current);
       }))
     })
-  }else{
+  } else {
     return Promise.resolve([]);
   }
 }
