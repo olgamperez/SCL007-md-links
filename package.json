@@ -1,12 +1,38 @@
 {
-  "name": "md-links",
+  "name": "reader-md-links",
   "version": "0.1.0",
+  "description": "Lee y analiza archivos Markdown extrayendo los links y verificando su estado",
+  "main": "index.js",
+  "bin": {
+    "md-links": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olgamperez/SCL007-md-links"
+  },
   "dependencies": {
+    "chai": "^4.2.0",
     "node-fetch": "^2.3.0"
   },
   "devDependencies": {
     "eslint": "^5.14.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "coverageReporters": ["json"]
+  },
+  "author": "Olga Pérez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olgamperez/SCL007-md-links/issues"
   }
 }
