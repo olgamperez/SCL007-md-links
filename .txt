@@ -3,10 +3,6 @@ const fetch = require('node-fetch');
 process.argv y path resolve
 
 
-
-const fff= async function(){
-    const valor= await unaPromesaCompleja
-}
 console.log(valor)
 
 spread operator
@@ -31,86 +27,3 @@ let option = process.argv[3]; */
   console.log(error);
 }); */
 
-
-const mdLinks = () => {
-  //Función para validate link (me devuelve la promesa que me valida si el link esta bueno o no)
-  const validateAllLink = (link) => {
-    return new Promise((resolve, reject) => {
-      fetch(link.link)
-        .then((res) => {
-          if (res.status === 200) {
-            return resolve({
-              ...link,
-              status: 'OK'
-            })
-          } else {
-            return resolve({
-              ...link,
-              status: 'Roto'
-            })
-          }
-        })
-        .catch((err) => {
-          return resolve({
-            ...link,
-            status: 'Sin conexión'
-          })
-        })
-    })
-  };
-  //Leer readme
-  const readLineLink = readline.createInterface({
-    input: fs.createReadStream(process.argv[2])
-  });
-  //Crear función leer linea por linea
-  const promiseAcc = [];
-  let counterLine = 0;
-  readLineLink.on('line', function (lineReadme) {
-    counterLine++;
-    let infoLink = lineReadme;
-    //Patron (expresiones regulares)
-    let pattern = /((http:\/\/|https:\/\/|www\.)[^\s][^\)]+)/;
-    let patternLink = infoLink.match(pattern); //me recorre todas las lineas para extraer los link
-    //console.log(patternLink); Arroja un arreglo completo
-    if (patternLink !== null) {
-      promiseAcc.push(validateAllLink({
-        "link": patternLink[0],
-        "line": counterLine
-      }));
-    }
-  })
-
-  return new Promise((resolve) => {
-    readLineLink.on('close', () => {
-   resolve (Promise.all(promiseAcc))
-      
-  });
-  })
-
-}
-
-if(require.main=== module)
-mdLinks()
-.then(console.log)
-module.exports= mdLinks;
-
-
-
-
-[\s\w]
-
-/\[+\w+|\]+\(+[A-Za-z]+\w+:+\D+[0-9]+\D..../;
-
-
- let pattern = /((http:\/\/|https:\/\/|www\.)[^\s][^\)]+)/;
-        let patternLink = infoLink.match(pattern); //me recorre todas las lineas para extraer los link
-        let patternText = patternLink.input
-        let patternRegexText= /\[.+?\]/;
-        let text= patternText.match(patternRegexText)
-        //console.log(patternLink); Arroja un arreglo completo
-        if (patternLink !== null) {
-          promiseAcc.push(validateAllLink({
-            "href": patternLink[0],
-            "text": text[0],
-            "line": counterLine,
-            "file": absolutPath,
