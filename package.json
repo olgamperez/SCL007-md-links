@@ -4,7 +4,7 @@
   "description": "Lee y analiza archivos Markdown extrayendo los links y verificando su estado",
   "main": "index.js",
   "bin": {
-    "md-links": "index.js"
+    "md-links": "./index.js"
   },
   "repository": {
     "type": "git",
