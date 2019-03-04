@@ -22,13 +22,13 @@ $ npm install --save -g https://github.com/olgamperez/SCL007-md-links
 Una vez instalado se debe ejecutar mediante **CLI (Linea de Comando)** desde la terminal como se indica: 
 
 ```js
-$ reader-md-links <Nombre del archivo>
+$ md-links <Nombre del archivo>
 // Si es un archivo (Ejemplo)
-$ reader-md-links ./Readme.md
+$ md-links ./Readme.md
 
-$ reader-md-links <Nombre de la carpeta>
+$ md-links <Nombre de la carpeta>
 // Si es una carpeta
-$ reader-md-links ./carpeta
+$ md-links ./carpeta
 ```
 
 Esto como resultado va a retornar una promesa que resuelve un arreglo de objetos como se muestra en el siguiente ejemplo:
