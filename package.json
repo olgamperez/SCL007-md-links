@@ -20,19 +20,19 @@
     "eslint-plugin-import": "^2.16.0"
   },
   "directories": {
-    "test": "test"
+    "test": "test --coverage"
   },
   "scripts": {
     "test": "jest"
   },
   "jest": {
     "verbose": true,
-    "collectCoverage": true,
-    "coverageReporters": ["json"]
+    "collectCoverage": true
   },
   "author": "Olga Pérez",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/olgamperez/SCL007-md-links/issues"
-  }
+  },
+  "homepage": "https://github.com/olgamperez/SCL007-md-links/blob/master/README.md"
 }
