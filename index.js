@@ -1,4 +1,4 @@
 const mdLinks= require('./md.js');
 
-mdLinks('./README.md').then(console.log);
+mdLinks(process.argv[2]).then(console.log);
 module.exports = mdLinks;
