@@ -74,9 +74,7 @@ const mdLinks = (pathUser) => {
   }
 }
 
-if (require.main === module)
-  mdLinks(processUser)
-  .then(console.log)
+
 
 
 module.exports = mdLinks;
