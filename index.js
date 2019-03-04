@@ -1,4 +1,4 @@
 const mdLinks= require('./md.js');
 
-mdLinks('./README.md').then(console.log);
+mdLinks('./carpeta').then(console.log);
 module.exports = mdLinks;

@@ -2,7 +2,7 @@
 
 ## Preámbulo
 
-Es una libreria que lee y analice archivos
+Es una libreria que lee y analiza archivos
 en formato `Markdown`, para extraer los links que contengan y verificar su estado; es decir, si el link esta en estatus OK, Roto o sin conexión.
 
 
@@ -29,6 +29,25 @@ $ reader-md-links ./Readme.md
 $ reader-md-links <Nombre de la carpeta>
 // Si es una carpeta
 $ reader-md-links ./carpeta
+```
+
+Esto como resultado va a retornar una promesa que resuelve un arreglo de objetos como se muestra en el siguiente ejemplo:
+
+```js
+[ { href: 'https://es.wikipedia.org/wiki/Markdown',
+    text:
+     '[Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado',
+    line: 5,
+    file:
+     '/home/laboratoriad309/Documentos/Markdown Links/SCL007-md-links/carpeta/prueba/README.md',
+    status: 'Ok' },
+  { href: 'https://nodejs.org/',
+    text:
+     'herramienta usando [Node.js](https://nodejs.org/), que lea y analice archivos',
+    line: 16,
+    file:
+     '/home/laboratoriad309/Documentos/Markdown Links/SCL007-md-links/carpeta/prueba/README.md',
+    status: 'Sin conexión' }]
 ```
 
 ## Planificación
