@@ -4,13 +4,13 @@ const fetch = require('node-fetch');
 const path = require('path');
 
 //Función general que retorna una promesa (Promise) y resuelve a un arreglo (Array) de objetos (Object)
-const mdLinks = (pathUser) => {
+const mdLinks = (pathUser, option) => {
   //Función para validate link (me devuelve la promesa que me valida si el link esta bueno o no)
   const validateAllLink = (link) => {
     return new Promise((resolve, reject) => {
       fetch(link.link)
         .then((res) => {
-          if (res.status === 200) {
+          if (option.indexof(('--validate') !==-1 && res.status === 200)){
             return resolve({
               ...link,
               status: 'OK'
