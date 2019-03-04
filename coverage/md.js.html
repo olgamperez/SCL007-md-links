@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for md.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="prettify.css" />
+    <link rel="stylesheet" href="base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="index.html">All files</a> md.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">59.46% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>22/37</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">58.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>7/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">36.36% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">59.46% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>22/37</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const fs = require('fs');
+const readline = require('readline');
+const fetch = require('node-fetch');
+const path = require('path');
+&nbsp;
+//Función general que retorna una promesa (Promise) y resuelve a un arreglo (Array) de objetos (Object)
+const mdLinks = (pathUser) =&gt; {
+  //Función para validate link (me devuelve la promesa que me valida si el link esta bueno o no)
+  const validateAllLink = <span class="fstat-no" title="function not covered" >(l</span>ink) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      fetch(link.link)</span>
+        .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {
+<span class="cstat-no" title="statement not covered" >          if (res.status === 200) {</span>
+<span class="cstat-no" title="statement not covered" >            return resolve({</span>
+              ...link,
+              status: 'OK'
+            })
+          } else {
+<span class="cstat-no" title="statement not covered" >            return resolve({</span>
+              ...link,
+              status: 'Roto'
+            })
+          }
+        })
+        .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >          return resolve({</span>
+            ...link,
+            status: 'Sin conexión'
+          })
+        })
+    })
+  };
+  //Leer readme
+  let validateIsFile = fs.statSync(pathUser)
+  if (validateIsFile.isFile() === true &amp;&amp; path.extname(pathUser) === '.md') {
+    const absolutPath = path.resolve(pathUser)
+    return new Promise((resolve, reject) =&gt; {
+      const readLineLink = readline.createInterface({
+        input: fs.createReadStream(pathUser)
+      });
+      //Crear función leer linea por linea
+      const promiseAcc = [];
+      let counterLine = 0;
+      readLineLink.on('line', <span class="fstat-no" title="function not covered" >fu</span>nction (lineReadme) {
+<span class="cstat-no" title="statement not covered" >        counterLine++;</span>
+        let infoLink = <span class="cstat-no" title="statement not covered" >lineReadme;</span>
+        //Patron (expresiones regulares)
+        let pattern = <span class="cstat-no" title="statement not covered" >/((http:\/\/|https:\/\/|www\.)[^\s][^\)]+)/;</span>
+        let patternLink = <span class="cstat-no" title="statement not covered" >infoLink.match(pattern);</span> //me recorre todas las lineas para extraer los link
+        //console.log(patternLink); Arroja un arreglo completo
+<span class="cstat-no" title="statement not covered" >        if (patternLink !== null) {</span>
+<span class="cstat-no" title="statement not covered" >          promiseAcc.push(validateAllLink({</span>
+            'href': patternLink[0],
+            'text': patternLink.input,
+            'line': counterLine,
+            'file': absolutPath,
+          }));
+        }
+      })
+      readLineLink.on('close', <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >        Promise.all(promiseAcc).then(resolve);</span>
+      });
+    });
+  } else if (fs.statSync(pathUser).isDirectory() === true) {
+    return Promise.all(fs.readdirSync(pathUser).map(e =&gt; {
+      return mdLinks(pathUser + "/" + e)
+    })).then(data=&gt;{
+      return Promise.resolve(data.reduce(<span class="fstat-no" title="function not covered" >(a</span>cc, current)=&gt;{
+<span class="cstat-no" title="statement not covered" >        return acc.concat(current);</span>
+      }))
+    })
+  }else{
+    return Promise.resolve([]);
+  }
+}
+&nbsp;
+<span class="missing-if-branch" title="if path not taken" >I</span>if (require.main === module)
+<span class="cstat-no" title="statement not covered" >  mdLinks(processUser)</span>
+  .then(console.log)
+&nbsp;
+&nbsp;
+module.exports = mdLinks;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Mar 03 2019 10:34:48 GMT-0300 (GMT-03:00)
+</div>
+</div>
+<script src="prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="sorter.js"></script>
+</body>
+</html>
